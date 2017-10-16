@@ -147,7 +147,7 @@ void MicroBit::init()
             // Start the BLE stack, if it isn't already running.
             if (!ble)
             {
-                bleManager.init(getName(), getSerial(), messageBus, true);
+                bleManager.init(getName(), getSerial(), messageBus, mMap, true);
                 ble = bleManager.ble;
             }
 
@@ -170,7 +170,7 @@ void MicroBit::init()
     // Start the BLE stack, if it isn't already running.
     if (!ble)
     {
-        bleManager.init(getName(), getSerial(), messageBus, false);
+        bleManager.init(getName(), getSerial(), messageBus, mMap, false);
         ble = bleManager.ble;
     }
 #endif
