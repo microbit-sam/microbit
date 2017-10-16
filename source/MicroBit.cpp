@@ -62,6 +62,7 @@ MicroBit::MicroBit() :
     serial(USBTX, USBRX),
 	resetButton(MICROBIT_PIN_BUTTON_RESET),
     storage(),
+    mMap(),
     i2c(I2C_SDA0, I2C_SCL0),
     messageBus(),
     display(),
