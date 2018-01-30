@@ -62,7 +62,6 @@ MicroBit::MicroBit() :
     serial(USBTX, USBRX),
 	resetButton(MICROBIT_PIN_BUTTON_RESET),
     storage(),
-    mMap(),
     i2c(I2C_SDA0, I2C_SCL0),
     messageBus(),
     display(),
@@ -147,7 +146,7 @@ void MicroBit::init()
             // Start the BLE stack, if it isn't already running.
             if (!ble)
             {
-                bleManager.init(getName(), getSerial(), messageBus, mMap, true);
+                bleManager.init(getName(), getSerial(), messageBus, true);
                 ble = bleManager.ble;
             }
 
@@ -170,7 +169,7 @@ void MicroBit::init()
     // Start the BLE stack, if it isn't already running.
     if (!ble)
     {
-        bleManager.init(getName(), getSerial(), messageBus, mMap, false);
+        bleManager.init(getName(), getSerial(), messageBus, false);
         ble = bleManager.ble;
     }
 #endif
