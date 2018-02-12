@@ -87,6 +87,11 @@ class MicroBit
       * fiber when someone has the intention of using these components.
       */
     void                        onListenerRegisteredEvent(MicroBitEvent evt);
+    
+    /**
+     * A listener to enter BLE Pairing mode when a specific event is fired.
+     */
+    void                        enterPairingMode(MicroBitEvent evt);
 
     uint8_t                     status;
 

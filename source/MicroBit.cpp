@@ -130,6 +130,9 @@ void MicroBit::init()
     status |= MICROBIT_INITIALIZED;
 
 #if CONFIG_ENABLED(MICROBIT_BLE_PAIRING_MODE)
+    // Set up a listener to enter BLE Pairing Mode
+    messageBus.listen(MICROBIT_ID_PAIRING_MODE, MICROBIT_EVT_ANY, this, &MicroBit::enterPairingMode);
+    
     // Test if we need to enter BLE pairing mode...
     int i=0;
     sleep(100);
@@ -220,4 +223,13 @@ void MicroBit::onListenerRegisteredEvent(MicroBitEvent evt)
             thermometer.updateSample();
             break;
     }
+}
+
+/**
+ * A listener to enter pairing mode when a specific MicroBitEvent is sent.
+ * This allows a user to create a custom action to enter the BLE bootloader rather than holding A+B
+ */
+void MicroBit::enterPairingMode(MicroBitEvent evt)
+{
+    bleManager.pairingMode(display, buttonA);
 }
