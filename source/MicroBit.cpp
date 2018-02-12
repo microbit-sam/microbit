@@ -138,7 +138,7 @@ void MicroBit::init()
         sleep(100);
         i++;
 
-        if (i == 10)
+        if (i == 4)
         {
 #if CONFIG_ENABLED(MICROBIT_HEAP_ALLOCATOR) && CONFIG_ENABLED(MICROBIT_HEAP_REUSE_SD)
             microbit_create_heap(MICROBIT_SD_GATT_TABLE_START + MICROBIT_SD_GATT_TABLE_SIZE, MICROBIT_SD_LIMIT);
