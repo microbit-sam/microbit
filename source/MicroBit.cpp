@@ -133,7 +133,7 @@ void MicroBit::init()
     // Test if we need to enter BLE pairing mode...
     int i=0;
     sleep(100);
-    while (buttonA.isPressed() && buttonB.isPressed() && i<10)
+    while (buttonA.isPressed() && buttonB.isPressed() && i<4)
     {
         sleep(100);
         i++;
