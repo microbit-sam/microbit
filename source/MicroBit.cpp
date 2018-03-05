@@ -239,10 +239,10 @@ void MicroBit::onListenerRegisteredEvent(MicroBitEvent evt)
  */
 void MicroBit::enterPairingMode(MicroBitEvent evt)
 {
-    // Add pairing mode key
-    uint8_t BLEMode = 1;
-    storage.put("BLEMode", &BLEMode, sizeof(BLEMode));
+// Add pairing mode key
+uint8_t BLEMode = 1;
+storage.put("BLEMode", &BLEMode, sizeof(BLEMode));
 
-    // Reset micro:bit
-    microbit_reset();
+// Reset micro:bit
+microbit_reset();
 }
