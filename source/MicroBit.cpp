@@ -132,9 +132,10 @@ void MicroBit::init()
 #if CONFIG_ENABLED(MICROBIT_BLE_PAIRING_MODE)
     // Set up a listener to enter BLE Pairing Mode
     messageBus.listen(MICROBIT_ID_PAIRING_MODE, MICROBIT_EVT_ANY, this, &MicroBit::enterPairingMode);
-    
+
     int i=0;
-    // Test if we need to enter BLE pairing mode...
+    // Test if we need to enter BLE pairing mode
+    // If a BLEMode Key has been set boot straight into BLE mode
     KeyValuePair* BLEMode = storage.get("BLEMode");
     sleep(100);
     while ((buttonA.isPressed() && buttonB.isPressed() && i<4) || BLEMode != NULL)
@@ -143,12 +144,12 @@ void MicroBit::init()
         sleep(100);
         i++;
 
-        if (i == 4)
+        if (i == 4 || BLEMode != NULL)
         {
-            // Remove KV
+            // Remove KV if it exists
             if(BLEMode != NULL)
                 storage.remove("BLEMode");
-            delete BLEMode; 
+            delete BLEMode;
 
 #if CONFIG_ENABLED(MICROBIT_HEAP_ALLOCATOR) && CONFIG_ENABLED(MICROBIT_HEAP_REUSE_SD)
             microbit_create_heap(MICROBIT_SD_GATT_TABLE_START + MICROBIT_SD_GATT_TABLE_SIZE, MICROBIT_SD_LIMIT);
@@ -240,7 +241,7 @@ void MicroBit::enterPairingMode(MicroBitEvent evt)
 {
     // Add pairing mode key
     uint8_t BLEMode = 1;
-    storage.put("BLEMode", &BLEMode, sizeof(BLEMode)); 
+    storage.put("BLEMode", &BLEMode, sizeof(BLEMode));
 
     // Reset micro:bit
     microbit_reset();
