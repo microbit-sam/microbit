@@ -130,21 +130,18 @@ void MicroBit::init()
     status |= MICROBIT_INITIALIZED;
 
 #if CONFIG_ENABLED(MICROBIT_BLE_PAIRING_MODE)
-    // Set up a listener to enter BLE Pairing Mode
-    messageBus.listen(MICROBIT_ID_PAIRING_MODE, MICROBIT_EVT_ANY, this, &MicroBit::enterPairingMode);
-
     int i=0;
     // Test if we need to enter BLE pairing mode
     // If a BLEMode Key has been set boot straight into BLE mode
     KeyValuePair* BLEMode = storage.get("BLEMode");
     sleep(100);
-    while ((buttonA.isPressed() && buttonB.isPressed() && i<4) || BLEMode != NULL)
+    while ((buttonA.isPressed() && buttonB.isPressed() && i<10) || BLEMode != NULL)
     {
 
         sleep(100);
         i++;
 
-        if (i == 4 || BLEMode != NULL)
+        if (i == 10 || BLEMode != NULL)
         {
             // Remove KV if it exists
             if(BLEMode != NULL)
@@ -231,18 +228,4 @@ void MicroBit::onListenerRegisteredEvent(MicroBitEvent evt)
             thermometer.updateSample();
             break;
     }
-}
-
-/**
- * A listener to enter pairing mode when a specific MicroBitEvent is sent.
- * This allows a user to create a custom action to enter the BLE bootloader rather than holding A+B
- */
-void MicroBit::enterPairingMode(MicroBitEvent evt)
-{
-// Add pairing mode key
-uint8_t BLEMode = 1;
-storage.put("BLEMode", &BLEMode, sizeof(BLEMode));
-
-// Reset micro:bit
-microbit_reset();
 }
