@@ -135,13 +135,20 @@ void MicroBit::init()
     // If a BLEMode Key has been set boot straight into BLE mode
     KeyValuePair* BLEMode = storage.get("BLEMode");
     sleep(100);
-    while ((buttonA.isPressed() && buttonB.isPressed() && i<10) || BLEMode != NULL)
+    // Animation
+    uint8_t x = 0; uint8_t y = 0;
+    while ((buttonA.isPressed() && buttonB.isPressed() && i<100) || BLEMode != NULL)
     {
+        display.image.setPixelValue(x,y,255);
+        sleep(10);
+        i++; x++;
 
-        sleep(100);
-        i++;
+        // Gradually fill screen
+        if(x == 5){
+          y++; x = 0;
+        }
 
-        if (i == 10 || BLEMode != NULL)
+        if (i == 100 || BLEMode != NULL)
         {
             // Remove KV if it exists
             if(BLEMode != NULL)
