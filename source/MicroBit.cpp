@@ -137,10 +137,10 @@ void MicroBit::init()
     sleep(100);
     // Animation
     uint8_t x = 0; uint8_t y = 0;
-    while ((buttonA.isPressed() && buttonB.isPressed() && i<100) || BLEMode != NULL)
+    while ((buttonA.isPressed() && buttonB.isPressed() && i<25) || BLEMode != NULL)
     {
         display.image.setPixelValue(x,y,255);
-        sleep(25);
+        sleep(50);
         i++; x++;
 
         // Gradually fill screen
@@ -148,12 +148,13 @@ void MicroBit::init()
           y++; x = 0;
         }
 
-        if (i == 100 || BLEMode != NULL)
+        if (i == 25 || BLEMode != NULL)
         {
             // Remove KV if it exists
-            if(BLEMode != NULL)
+            if(BLEMode != NULL){
                 storage.remove("BLEMode");
-            delete BLEMode;
+                delete BLEMode;
+            }
 
 #if CONFIG_ENABLED(MICROBIT_HEAP_ALLOCATOR) && CONFIG_ENABLED(MICROBIT_HEAP_REUSE_SD)
             microbit_create_heap(MICROBIT_SD_GATT_TABLE_START + MICROBIT_SD_GATT_TABLE_SIZE, MICROBIT_SD_LIMIT);
