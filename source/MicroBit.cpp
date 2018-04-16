@@ -134,10 +134,11 @@ void MicroBit::init()
     // Test if we need to enter BLE pairing mode
     // If a BLEMode Key has been set boot straight into BLE mode
     KeyValuePair* BLEMode = storage.get("BLEMode");
+    KeyValuePair* flashIncomplete = storage.get("flashIncomplete");
     sleep(100);
     // Animation
     uint8_t x = 0; uint8_t y = 0;
-    while ((buttonA.isPressed() && buttonB.isPressed() && i<25) || BLEMode != NULL)
+    while ((buttonA.isPressed() && buttonB.isPressed() && i<25) || BLEMode != NULL || flashIncomplete != NULL)
     {
         display.image.setPixelValue(x,y,255);
         sleep(50);
