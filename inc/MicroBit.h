@@ -88,11 +88,6 @@ class MicroBit
       */
     void                        onListenerRegisteredEvent(MicroBitEvent evt);
 
-     /**
-     * A listener to enter BLE Pairing mode when a specific event is fired.
-     */
-    void                        enterPairingMode(MicroBitEvent evt);
-
     uint8_t                     status;
 
     public:
